@@ -1,10 +1,12 @@
 # ==== CONFIGURE =====
 # Use a Node 16 base image
 FROM node:17-alpine 
-# Set the working directory to /app inside the container
+
+ENV NODE_ENV=production
+
 WORKDIR /app
 # Copy app files
-COPY package.json .
+COPY ["package.json", "package-lock.json", "./"]
 
 RUN npm i 
 
