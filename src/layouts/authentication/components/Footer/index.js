@@ -42,7 +42,7 @@ function Footer() {
         },
       })}
     >
-      <Grid container justifyContent="center">
+      {/* <Grid container justifyContent="center">
         <Grid item xs={12} sx={{ textAlign: "center" }}>
           <VuiTypography
             variant="button"
@@ -94,7 +94,7 @@ function Footer() {
             </VuiBox>
           </VuiBox>
         </Grid>
-      </Grid>
+      </Grid> */}
     </VuiBox>
   );
 }

@@ -1,22 +1,3 @@
-/*!
-
-=========================================================
-* Vision UI Free React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/vision-ui-free-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-* Licensed under MIT (https://github.com/creativetimofficial/vision-ui-free-react/blob/master LICENSE.md)
-
-* Design and Coded by Simmmple & Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// @mui material components
 import Card from "@mui/material/Card";
 
 // Vision UI Dashboard React components
@@ -37,54 +18,195 @@ import AdobeXD from "examples/Icons/AdobeXD";
 
 // Vision UI Dashboard theme imports
 import palette from "assets/theme/base/colors";
+import { useState, useEffect, useMemo } from "react";
 
 function OrdersOverview() {
+  const [meteorologicalData, setMeteorologicalData] = useState();
+
+  // Poll the server for new data.
+  useEffect(() => {
+    const interval3 = setInterval(() => {
+      fetch("http://localhost:1880/MeteorologicalState")
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setMeteorologicalData(result);
+            console.log("Meteo res");
+            console.log(result);
+            console.log("Meteo res");
+          },
+          (error) => {
+            console.log("error");
+          }
+        );
+    }, 2000);
+    return () => clearInterval(interval3);
+  }, []);
+
   return (
     <Card className="h-100">
       <VuiBox mb="16px">
         <VuiTypography variant="lg" fontWeight="bold" mb="5px" color="white">
-          Orders overview
+          Capteurs
         </VuiTypography>
         <VuiBox mb={2}>
           <VuiBox display="flex" alignItems="center">
             <BsCheckCircleFill color="green" size="15px" mr="5px" />
             <VuiTypography variant="button" color="text" fontWeight="medium" ml="5px" mr="2px">
-              +30%
+              Activé
             </VuiTypography>{" "}
-            <VuiTypography variant="button" color="text" fontWeight="regular">
-              {" "}
-              this month
-            </VuiTypography>
           </VuiBox>
         </VuiBox>
       </VuiBox>
       <VuiBox>
-        <TimelineItem
-          icon={<FaBell size="16px" color={palette.info.main} />}
-          title="$2400, Design changes"
-          dateTime="22 DEC 7:20 PM"
-        />
-        <TimelineItem
-          icon={<IoLogoCss3 size="16px" color={palette.error.main} />}
-          title="New order #1832412"
-          dateTime="21 DEC 11 PM"
-        />
-        <TimelineItem
-          icon={<FaShoppingCart size="16px" color={palette.lightblue.main} />}
-          title="Server payments for April"
-          dateTime="21 DEC 9:34 PM"
-        />
-        <TimelineItem
-          icon={<BsCreditCardFill size="16px" color={palette.warning.main} />}
-          title="New card added for order #4395133"
-          dateTime="20 DEC 2:20 AM"
-        />
-        <TimelineItem
-          icon={<SiDropbox size="16px" color={palette.primary.focus} />}
-          title="New card added for order #4395133"
-          dateTime="18 DEC 4:54 AM"
-        />
-        <TimelineItem icon={<AdobeXD size="20px" />} title="New order #9583120" dateTime="17 DEC" />
+        {meteorologicalData ? (
+          <>
+            <TimelineItem
+              icon={<FaBell size="16px" color={palette.info.main} />}
+              title="Capteur de visibilité "
+              dateTime={
+                "Vitesse :  " +
+                meteorologicalData.VisibleValue +
+                "m " +
+                " Status :  " +
+                meteorologicalData.VisibleStatus
+              }
+            />
+          </>
+        ) : (
+          <></>
+        )}
+        {meteorologicalData ? (
+          <>
+            <TimelineItem
+              icon={<FaBell size="16px" color={palette.info.main} />}
+              title="Capteur de précipitation "
+              dateTime={
+                "Vitesse :  " +
+                meteorologicalData.PrecValue +
+                "mm " +
+                " Status :  " +
+                meteorologicalData.PrecStatus
+              }
+            />
+          </>
+        ) : (
+          <></>
+        )}
+        {meteorologicalData ? (
+          <>
+            <TimelineItem
+              icon={<FaBell size="16px" color={palette.info.main} />}
+              title="Caméra des fenetres passagers "
+              dateTime={
+                "Fenetre Passager :  " +
+                meteorologicalData.FenetrePassager +
+                " Status :  " +
+                meteorologicalData.FenetreCamStatus
+              }
+            />
+          </>
+        ) : (
+          <></>
+        )}
+        {meteorologicalData ? (
+          <>
+            <TimelineItem
+              icon={<FaBell size="16px" color={palette.info.main} />}
+              title="Capteur de tempétrature interne "
+              dateTime={
+                "Fenetre Passager :  " +
+                meteorologicalData.TempValue +
+                " °C " +
+                meteorologicalData.TempStatus
+              }
+            />
+          </>
+        ) : (
+          <></>
+        )}
+        {meteorologicalData ? (
+          <>
+            <TimelineItem
+              icon={<FaBell size="16px" color={palette.info.main} />}
+              title="Capteur de vittesse de vent "
+              dateTime={
+                "Vitesse :  " +
+                meteorologicalData.VendValue +
+                "Km/h " +
+                " Status :  " +
+                meteorologicalData.VendStatus
+              }
+            />
+          </>
+        ) : (
+          <></>
+        )}
+        {meteorologicalData ? (
+          <>
+            <TimelineItem
+              icon={<FaBell size="16px" color={palette.info.main} />}
+              title="Capteur de neige "
+              dateTime={
+                "Vitesse :  " +
+                meteorologicalData.NeigeValue +
+                " cm " +
+                " Status :  " +
+                meteorologicalData.NeigeStatus
+              }
+            />
+          </>
+        ) : (
+          <></>
+        )}
+
+        {meteorologicalData ? (
+          <>
+            <TimelineItem
+              icon={<FaBell size="16px" color={palette.info.main} />}
+              title="Chauffage de sieges "
+              dateTime={meteorologicalData.ChauffageDeSieges}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+
+        {meteorologicalData ? (
+          <>
+            <TimelineItem
+              icon={<FaBell size="16px" color={palette.info.main} />}
+              title="Chauffage des poignes des portes "
+              dateTime={meteorologicalData.Chauffagepoigneporte}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+        {meteorologicalData ? (
+          <>
+            <TimelineItem
+              icon={<FaBell size="16px" color={palette.info.main} />}
+              title="Chauffage des essue-glaces "
+              dateTime={meteorologicalData.ChauffageEssueGlaces}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+        {meteorologicalData ? (
+          <>
+            <TimelineItem
+              icon={<FaBell size="16px" color={palette.info.main} />}
+              title="Chauffage des coffres "
+              dateTime={meteorologicalData.ChauffageCoffres}
+            />
+          </>
+        ) : (
+          <></>
+        )}
+
+        {/* <TimelineItem icon={<AdobeXD size="20px" />} title="New order #9583120" dateTime="17 DEC" /> */}
       </VuiBox>
     </Card>
   );

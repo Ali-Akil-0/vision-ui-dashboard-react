@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Vision UI Free React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/vision-ui-free-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-* Licensed under MIT (https://github.com/creativetimofficial/vision-ui-free-react/blob/master LICENSE.md)
-
-* Design and Coded by Simmmple & Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the software.
-
-*/
-
 import { useState, useEffect, useMemo } from "react";
 
 // react-router components
@@ -54,6 +36,9 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+  const [conductorSecurityData, setConductorSecurityData] = useState();
+  const [carSecurity, setCarSecurity] = useState();
+  const [meteorologicalData, setMeteorologicalData] = useState();
 
   // Cache for the rtl
   useMemo(() => {
@@ -93,6 +78,53 @@ export default function App() {
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
+    const interval = setInterval(() => {
+      // Poll the server for new data.
+      fetch("http://localhost:1880/data")
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setConductorSecurityData(result);
+            console.log("Conductor safety res");
+            console.log(result);
+            console.log("Conductor safety res");
+          },
+
+          (error) => {
+            console.log("error");
+          }
+        );
+    }, 200);
+    // const interval2 = setInterval(() => {
+    //   // Poll the server for new data.
+    //   fetch("http://localhost:1880/CheckRoadSafety")
+    //     .then((res) => res.json())
+    //     .then(
+    //       (result) => {
+    //         setCarSecurity(result);
+    //       },
+    //       (error) => {
+    //         console.log("error");
+    //       }
+    //     );
+    // }, 1000);
+    // const interval3 = setInterval(() => {
+    //   // Poll the server for new data.
+    //   fetch("http://localhost:1880/MeteorologicalState")
+    //     .then((res) => res.json())
+    //     .then(
+    //       (result) => {
+    //         setMeteorologicalData(result);
+    //         console.log("Meteo res");
+    //         console.log(result);
+    //         console.log("Meteo res");
+    //       },
+    //       (error) => {
+    //         console.log("error");
+    //       }
+    //     );
+    // }, 1000);
+    return () => clearInterval(interval);
   }, [pathname]);
 
   const getRoutes = (allRoutes) =>
@@ -138,14 +170,14 @@ export default function App() {
         <CssBaseline />
         {layout === "dashboard" && (
           <>
-            <Sidenav
+            {/* <Sidenav
               color={sidenavColor}
               brand=""
               brandName="VISION UI FREE"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
-            />
+            /> */}
             <Configurator />
             {configsButton}
           </>
@@ -162,14 +194,14 @@ export default function App() {
       <CssBaseline />
       {layout === "dashboard" && (
         <>
-          <Sidenav
+          {/* <Sidenav
             color={sidenavColor}
             brand=""
             brandName="VISION UI FREE"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
-          />
+          /> */}
           <Configurator />
           {configsButton}
         </>

@@ -67,7 +67,7 @@ function TimelineItem({ color, icon, title, dateTime, description, badges, lastI
           {title}
         </VuiTypography>
         <VuiBox mt={0.5}>
-          <VuiTypography variant="caption" fontWeight="medium" color="text">
+          <VuiTypography variant="button" fontWeight="medium" color="text">
             {dateTime}
           </VuiTypography>
         </VuiBox>

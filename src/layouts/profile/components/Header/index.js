@@ -66,7 +66,7 @@ function Header() {
 
   return (
     <VuiBox position="relative">
-      <DashboardNavbar light />
+      {/* <DashboardNavbar light />
       <Card
         sx={{
           px: 3,
@@ -149,7 +149,7 @@ function Header() {
             </AppBar>
           </Grid>
         </Grid>
-      </Card>
+      </Card> */}
     </VuiBox>
   );
 }
